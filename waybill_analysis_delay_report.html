@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>运单延误诊断报告（L1/L2）</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: rgba(255,255,255,0.06);
+      --panel2: rgba(255,255,255,0.04);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.64);
+      --accent: #7dd3fc;
+      --accent2: #a7f3d0;
+      --danger: #fb7185;
+      --border: rgba(255,255,255,0.10);
+      --shadow: 0 10px 30px rgba(0,0,0,0.35);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+    html, body { background: radial-gradient(1000px 600px at 15% 10%, rgba(125,211,252,0.18), transparent 50%),
+      radial-gradient(900px 540px at 80% 20%, rgba(167,243,208,0.12), transparent 45%), var(--bg);
+      color: var(--text); font-family: var(--sans); }
+    .wrap { max-width: 1220px; margin: 26px auto; padding: 0 16px 42px; }
+    header { display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin-bottom: 16px; }
+    h1 { margin:0; font-size: 22px; letter-spacing: .2px; }
+    .meta { color: var(--muted); font-size: 12.5px; line-height: 1.6; text-align:right; }
+    .grid { display:grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .card { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); }
+    .card .hd { padding: 14px 16px 10px; border-bottom: 1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap: 12px; }
+    .card .bd { padding: 12px 16px 14px; }
+    .tag { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+    .pill { background: var(--panel2); border: 1px solid var(--border); border-radius: 999px; padding: 7px 10px; font-size: 12.5px; color: var(--muted); }
+    table { width: 100%; border-collapse: separate; border-spacing: 0; overflow:hidden; }
+    th, td { padding: 10px 10px; border-bottom: 1px solid var(--border); font-size: 12.8px; }
+    th { color: var(--muted); font-weight: 600; text-align:left; background: rgba(255,255,255,0.03); }
+    td.num, td.mono { text-align:right; font-family: var(--mono); }
+    .chart { height: 260px; }
+    .note { color: var(--muted); font-size: 12.5px; line-height: 1.7; }
+    .kpiRow { display:flex; gap:10px; flex-wrap:wrap; }
+    ul { margin: 0; padding-left: 18px; }
+    li { margin: 7px 0; }
+    .sampleWrap { overflow:auto; max-height: 320px; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>运单延误诊断报告（L1/L2）</h1>
+        <div class="note" style="margin-top:6px;">基于你定义的字段关系做“未达成运单”定位，并用 `线路发出网点名称` 推导上游责任方向（L1）与网点延迟标签（L2）。</div>
+      </div>
+      <div class="meta">
+        <div>生成时间：2026-03-25 17:21:20</div>
+        <div>输入数据：<span class="mono">/Users/liliping61/Desktop/工作/script/参考脚本/waybill_analysis/waybill_analysis_dataset.csv</span></div>
+      </div>
+    </header>
+
+    <div class="grid">
+      <div class="card">
+        <div class="hd">
+          <div>总体概览</div>
+          <div class="tag">未达成定位</div>
+        </div>
+        <div class="bd">
+          <div class="kpiRow">
+            <div class="pill"><b style="color:var(--text);">总运单</b> 2284</div>
+            <div class="pill"><b style="color:var(--text);">未达成运单</b> 754</div>
+            <div class="pill"><b style="color:var(--text);">未达成占比</b> 33.0%</div>
+          </div>
+          <div class="note" style="margin-top:10px;">
+            <b>备注：</b>未达成仅表示“验货时间晚于计划/晚于下一车到达时间”的数据关系满足，不等同于严格因果。
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="hd">
+          <div>判断规则</div>
+          <div class="tag">规则可追溯</div>
+        </div>
+        <div class="bd">
+          <ul>
+            <li><b>未达成条件：</b>满足以下任意一条即命中并输出 L1/L2；否则置空。</li>
+            <li>条件A：`验货时间` &gt; `计划时间`</li>
+            <li>条件B：`验货时间` &gt; `同线路下一辆车的实际到达时间`</li>
+            <li><b>L1原因：</b>根据 `线路发出网点名称`：包含 `接货仓` -> `上游责任-接货仓`；包含 `分拣中心` -> `上游责任-分拣`；包含 `站` -> `上游责任-终端`。</li>
+            <li><b>L2原因：</b>输出 `线路发出网点名称` + `延迟`（例如：`廊坊接货仓延迟`）。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid" style="margin-top:14px;">
+      <div class="card">
+        <div class="hd">
+          <div>L1原因占比</div>
+          <div class="tag">上游责任方向</div>
+        </div>
+        <div class="bd">
+          <div class="chart"><canvas id="chartL1"></canvas></div>
+          <div class="sampleWrap" style="margin-top:10px;">
+            <table>
+              <thead>
+                <tr><th>L1原因</th><th class="num">数量</th><th class="num">占比</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>上游责任-分拣</td><td class='num'>489</td><td class='num'>64.9%</td></tr>
+                <tr><td>上游责任-接货仓</td><td class='num'>127</td><td class='num'>16.8%</td></tr>
+                <tr><td>上游责任-终端</td><td class='num'>115</td><td class='num'>15.3%</td></tr>
+                <tr><td>上游责任-其他</td><td class='num'>23</td><td class='num'>3.1%</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="hd">
+          <div>L2原因占比</div>
+          <div class="tag">网点延迟标签（Top 10 + 其他）</div>
+        </div>
+        <div class="bd">
+          <div class="chart"><canvas id="chartL2"></canvas></div>
+          <div class="sampleWrap" style="margin-top:10px;">
+            <table>
+              <thead>
+                <tr><th>L2原因</th><th class="num">数量</th><th class="num">占比</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>北京魏永集货分拣中心延迟</td><td class='num'>114</td><td class='num'>15.1%</td></tr>
+                <tr><td>廊坊三河接货分拣中心延迟</td><td class='num'>49</td><td class='num'>6.5%</td></tr>
+                <tr><td>天津京滨接货分拣中心延迟</td><td class='num'>43</td><td class='num'>5.7%</td></tr>
+                <tr><td>廊坊广阳接货仓延迟</td><td class='num'>43</td><td class='num'>5.7%</td></tr>
+                <tr><td>北京礼贤接货分拣中心延迟</td><td class='num'>34</td><td class='num'>4.5%</td></tr>
+                <tr><td>廊坊接货仓延迟</td><td class='num'>31</td><td class='num'>4.1%</td></tr>
+                <tr><td>杭州东洲集货分拣中心延迟</td><td class='num'>24</td><td class='num'>3.2%</td></tr>
+                <tr><td>天津散货分拣中心延迟</td><td class='num'>20</td><td class='num'>2.7%</td></tr>
+                <tr><td>廊坊集散分拣中心延迟</td><td class='num'>18</td><td class='num'>2.4%</td></tr>
+                <tr><td>廊坊安次重货接货仓延迟</td><td class='num'>18</td><td class='num'>2.4%</td></tr>
+                <tr><td>其他</td><td class='num'>360</td><td class='num'>47.7%</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px;">
+      <div class="hd">
+        <div>示例数据（未达成命中行）</div>
+        <div class="tag">用于核对口径</div>
+      </div>
+      <div class="bd">
+        <div class="sampleWrap">
+          <table>
+            <thead>
+              <tr>
+                <th>运单号</th>
+                <th>线路发出网点名称</th>
+                <th class="mono">计划时间</th>
+                <th class="mono">验货时间</th>
+                <th class="mono">下一车到达时间</th>
+                <th>L1原因</th>
+                <th>L2原因</th>
+                <th>命中条件</th>
+                <th class="mono">延误分钟(近似)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class='mono'>JDVA42758908923</td><td>北京顺发专揽站</td><td class='mono'>2026-03-24 05:40:00</td><td class='mono'>2026-03-25 03:45:48</td><td class='mono'>2026-03-23 10:50:58</td><td>上游责任-终端</td><td>北京顺发专揽站延迟</td><td>验货&gt;计划 + 验货&gt;下一车</td><td class='mono'>2454.8</td></tr>
+              <tr><td class='mono'>JDV026280453545</td><td>义乌集散分拣中心</td><td class='mono'>2026-03-24 05:40:00</td><td class='mono'>2026-03-24 08:02:40</td><td class='mono'>2026-03-22 20:56:27</td><td>上游责任-分拣</td><td>义乌集散分拣中心延迟</td><td>验货&gt;计划 + 验货&gt;下一车</td><td class='mono'>2106.2</td></tr>
+              <tr><td class='mono'>JDVA42629145521</td><td>北京魏永集货分拣中心</td><td class='mono'>2026-03-24 16:00:00</td><td class='mono'>2026-03-25 07:20:56</td><td class='mono'>2026-03-23 20:58:37</td><td>上游责任-分拣</td><td>北京魏永集货分拣中心延迟</td><td>验货&gt;计划 + 验货&gt;下一车</td><td class='mono'>2062.3</td></tr>
+              <tr><td class='mono'>JDVC35499572920</td><td>天津散货分拣中心</td><td class='mono'>2026-03-24 05:40:00</td><td class='mono'>2026-03-25 11:14:54</td><td class='mono'>2026-03-24 01:48:09</td><td>上游责任-分拣</td><td>天津散货分拣中心延迟</td><td>验货&gt;计划 + 验货&gt;下一车</td><td class='mono'>2006.7</td></tr>
+              <tr><td class='mono'>JD0234713152808</td><td>天津京滨接货分拣中心</td><td class='mono'>2026-03-24 05:40:00</td><td class='mono'>2026-03-25 15:02:45</td><td class='mono'></td><td>上游责任-分拣</td><td>天津京滨接货分拣中心延迟</td><td>验货&gt;计划</td><td class='mono'>2002.8</td></tr>
+              <tr><td class='mono'>JD0234714477776</td><td>廊坊龙河接货分拣中心</td><td class='mono'>2026-03-24 05:40:00</td><td class='mono'>2026-03-25 09:00:50</td><td class='mono'>2026-03-24 01:19:52</td><td>上游责任-分拣</td><td>廊坊龙河接货分拣中心延迟</td><td>验货&gt;计划 + 验货&gt;下一车</td><td class='mono'>1901.0</td></tr>
+              <tr><td class='mono'>JD0234698926432</td><td>廊坊广阳接货仓</td><td class='mono'>2026-03-24 05:40:00</td><td class='mono'>2026-03-25 08:24:03</td><td class='mono'>2026-03-24 01:28:37</td><td>上游责任-接货仓</td><td>廊坊广阳接货仓延迟</td><td>验货&gt;计划 + 验货&gt;下一车</td><td class='mono'>1855.4</td></tr>
+              <tr><td class='mono'>JD0234701668967</td><td>廊坊鑫睿接货仓</td><td class='mono'>2026-03-24 05:40:00</td><td class='mono'>2026-03-25 12:25:30</td><td class='mono'>2026-03-24 20:45:21</td><td>上游责任-接货仓</td><td>廊坊鑫睿接货仓延迟</td><td>验货&gt;计划 + 验货&gt;下一车</td><td class='mono'>1845.5</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note" style="margin-top:10px;">
+          `延误分钟(近似)` 是用 Excel 序列日期差值换算得到的近似值，仅用于排序参考。
+        </div>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:14px;">
+      说明：HTML 报告由脚本自动生成；如你希望对 `L2原因` 做合并（例如按网点类型聚合），告诉我聚合规则即可。
+    </div>
+  </div>
+
+  <script>
+    const l1Labels = ["上游责任-分拣", "上游责任-接货仓", "上游责任-终端", "上游责任-其他"];
+    const l1Vals = [489, 127, 115, 23];
+    const l2Labels = ["北京魏永集货分拣中心延迟", "廊坊三河接货分拣中心延迟", "天津京滨接货分拣中心延迟", "廊坊广阳接货仓延迟", "北京礼贤接货分拣中心延迟", "廊坊接货仓延迟", "杭州东洲集货分拣中心延迟", "天津散货分拣中心延迟", "廊坊集散分拣中心延迟", "廊坊安次重货接货仓延迟", "其他"];
+    const l2Vals = [114, 49, 43, 43, 34, 31, 24, 20, 18, 18, 360];
+
+    function makeBar(ctx, labels, values, color) {
+      return new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: labels,
+          datasets: [{ label: "数量", data: values, backgroundColor: color, borderColor: "rgba(255,255,255,0.18)", borderWidth: 1 }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { ticks: { color: "rgba(255,255,255,0.80)" }, grid: { color: "rgba(255,255,255,0.06)" } },
+            y: { ticks: { color: "rgba(255,255,255,0.80)" }, grid: { color: "rgba(255,255,255,0.06)" }, beginAtZero: true }
+          }
+        }
+      });
+    }
+
+    makeBar(document.getElementById("chartL1"), l1Labels, l1Vals, "rgba(125,211,252,0.65)");
+    makeBar(document.getElementById("chartL2"), l2Labels, l2Vals, "rgba(167,243,208,0.60)");
+  </script>
+</body>
+</html>

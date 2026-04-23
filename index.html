@@ -4,9 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>UData-AI分享 | 智能分析助手介绍</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg: #f8fafc;
@@ -455,7 +452,7 @@
       padding: 0.95rem 1rem 0.85rem;
     }
     #llm .topic-block:first-of-type .illo svg {
-      max-width: 700px;
+      max-width: 620px;
     }
     #llm .figure svg {
       max-width: 940px;
@@ -464,7 +461,7 @@
       max-width: 860px;
     }
     #principles > .main-inner > .illo svg {
-      max-width: 860px;
+      max-width: 740px;
     }
     #principles .figure img {
       max-width: 1040px;
@@ -1516,7 +1513,7 @@
         <a href="#llm" data-slide="llm">核心原理</a>
         <a href="#cases" data-slide="cases">业务案例</a>
         <a href="#principles" data-slide="principles">后续规划</a>
-        <a href="#closing" data-slide="closing">结语 · 星空</a>
+        <a href="#closing" data-slide="closing">结语</a>
       </nav>
     </aside>
 
@@ -1806,7 +1803,12 @@
               </div>
             </div>
 
+            <h3>AI分析业务应用案例</h3>
             <div class="grid-2 method-combo">
+              <div class="figure" role="img" aria-label="Agent Skills 能力插件箱示意图">
+                <img src="./assets/agent-skills.png" alt="Agent Skills 能力插件箱示意图" loading="lazy" />
+                <p class="figure-caption"><strong>Skill 封装</strong>：再把这些做法整理成可复用的技能，后面遇到类似任务，就可以直接调用。</p>
+              </div>
               <div class="figure" role="img" aria-label="多个高频场景共用统一方法">
                 <svg viewBox="0 0 520 360" width="520" height="360" xmlns="http://www.w3.org/2000/svg">
                   <defs>
@@ -1851,11 +1853,7 @@
                   <circle cx="352" cy="312" r="8" fill="#60a5fa" opacity="0.45"/>
                   <circle cx="470" cy="60" r="10" fill="#c4b5fd" opacity="0.38"/>
                 </svg>
-                <p class="figure-caption"><strong>统一方法</strong>：左边这些场景彼此是并列关系，但都可以沉淀成同一类 Skill 模板，后面遇到类似问题就能直接复用。</p>
-              </div>
-              <div class="figure" role="img" aria-label="Agent Skills 能力插件箱示意图">
-                <img src="./assets/agent-skills.png" alt="Agent Skills 能力插件箱示意图" loading="lazy" />
-                <p class="figure-caption"><strong>Skill 封装</strong>：把这些固定做法装进“能力插件箱”里，后面 Agent 按任务自动调用，就不需要每次从头教一遍。</p>
+                <p class="figure-caption"><strong>统一方法</strong>：先把这些高频场景里共通的做法整理出来，后面遇到类似问题就能更快复用。</p>
               </div>
             </div>
 
@@ -1870,6 +1868,12 @@
               <summary><span class="pill">2</span> 分拣异常归因（未达成明细）</summary>
               <div class="body">
                 <p>以前需要先拼很多字段，再人工判断原因，耗时很长。现在可以先自动补出一部分原因，人工再复核修改。</p>
+                <a
+                  class="demo-link"
+                  href="./waybill_analysis_delay_report.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >打开功能演示页面</a>
               </div>
             </details>
             <details class="interactive">
@@ -1982,7 +1986,7 @@
               <div class="starry-meteor starry-meteor--f"></div>
             </div>
             <div class="starry-content">
-              <h2 class="sr-only">结语 · 星空</h2>
+              <h2 class="sr-only">结语</h2>
               <p class="starry-line starry-animate" data-starry-delay="180">也许很快，生产力将不再是稀缺资源。</p>
               <p class="starry-line starry-animate" data-starry-delay="520">那个靠「多做一点」取胜的时代，正在过去。</p>
               <p class="starry-line starry-animate" data-starry-delay="860">一个全新的时代正在展开。</p>
