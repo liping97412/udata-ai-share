@@ -488,6 +488,25 @@
       text-align: left;
       line-height: 1.5;
     }
+    #principles .plan-video {
+      margin-top: 0.85rem;
+      padding: 1rem;
+      background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+    }
+    #principles .plan-video h3 {
+      margin: 0 0 0.4rem;
+    }
+    #principles .plan-video p {
+      margin-bottom: 0.8rem;
+    }
+    #principles .plan-video-player {
+      width: 100%;
+      display: block;
+      border-radius: 1rem;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      background: #0f172a;
+      box-shadow: 0 12px 28px -20px rgba(15, 23, 42, 0.3);
+    }
     #cases .method-combo {
       margin: 0 0 1rem;
       align-items: stretch;
@@ -1523,7 +1542,7 @@
           <div class="main-inner">
             <p class="eyebrow">UData-AI分享</p>
             <h1>AI 不只是会聊天，还能帮我们一步步把事情做完</h1>
-            <p class="tagline">今天主要讲四件事：<strong>核心原理</strong>、<strong>业务案例</strong>、<strong>后续规划</strong>，最后用一页做结语收尾。</p>
+            <p class="tagline">今天主要讲三件事：<strong>核心原理</strong>、<strong>业务案例</strong>、<strong>后续规划</strong>。</p>
 
             <div class="illo illo--hero" aria-hidden="true">
               <svg class="hero-svg" viewBox="0 0 560 220" xmlns="http://www.w3.org/2000/svg">
@@ -1571,7 +1590,6 @@
                 <li>1）先讲清楚大模型、Agent、Skill 分别是什么</li>
                 <li>2）再看它们在业务里最适合先落地哪些场景</li>
                 <li>3）然后看 UData-AI 后面准备怎么一步步推进</li>
-                <li>4）最后用一页结语做收尾</li>
               </ul>
             </div>
           </div>
@@ -1940,11 +1958,11 @@
                 </a>
                 <p class="figure-caption"><strong>交互方式</strong>：先把统一入口和对话式交互做好，让用户一进来就知道怎么提问、怎么选能力、怎么发起任务。</p>
               </div>
-              <div class="figure" role="img" aria-label="智能问数设计图">
-                <a class="figure-link" href="./assets/smart-query.png" target="_blank" rel="noopener noreferrer" title="点击查看大图">
-                  <img src="./assets/smart-query.png" alt="智能问数设计图" loading="lazy" />
+              <div class="figure" role="img" aria-label="技能广场设计图">
+                <a class="figure-link" href="./assets/skills-market.png" target="_blank" rel="noopener noreferrer" title="点击查看大图">
+                  <img src="./assets/skills-market.png" alt="技能广场设计图" loading="lazy" />
                 </a>
-                <p class="figure-caption"><strong>智能问数</strong>：围绕“我想快速知道一个结论”这种需求，做到边查边解释，让用户更快拿到图表和答案。</p>
+                <p class="figure-caption"><strong>技能广场</strong>：把沉淀下来的能力做成可复用的技能，后面谁有类似问题，都可以直接挑一个来用。</p>
               </div>
               <div class="figure" role="img" aria-label="智能报告设计图">
                 <a class="figure-link" href="./assets/smart-report.png" target="_blank" rel="noopener noreferrer" title="点击查看大图">
@@ -1952,11 +1970,11 @@
                 </a>
                 <p class="figure-caption"><strong>智能报告</strong>：把报告生成过程产品化，不只是出一段结论，还能按固定框架持续补全内容，方便业务直接拿去用。</p>
               </div>
-              <div class="figure" role="img" aria-label="技能广场设计图">
-                <a class="figure-link" href="./assets/skills-market.png" target="_blank" rel="noopener noreferrer" title="点击查看大图">
-                  <img src="./assets/skills-market.png" alt="技能广场设计图" loading="lazy" />
+              <div class="figure" role="img" aria-label="智能问数设计图">
+                <a class="figure-link" href="./assets/smart-query.png" target="_blank" rel="noopener noreferrer" title="点击查看大图">
+                  <img src="./assets/smart-query.png" alt="智能问数设计图" loading="lazy" />
                 </a>
-                <p class="figure-caption"><strong>技能广场</strong>：把沉淀下来的能力做成可复用的技能，后面谁有类似问题，都可以直接挑一个来用。</p>
+                <p class="figure-caption"><strong>智能问数</strong>：围绕“我想快速知道一个结论”这种需求，做到边查边解释，让用户更快拿到图表和答案。</p>
               </div>
             </div>
             <div class="card">
@@ -1968,6 +1986,15 @@
             </div>
             <div class="card">
               <p><span class="pill">目标</span>说得更简单一点，就是让更多人都能更轻松地用数据，把找数、做数、看数这件事整体提速。</p>
+            </div>
+            <div class="card plan-video">
+              <p><span class="pill">五月即将上线</span>这部分是一个即将上线的新功能预览，方便提前感受后续产品形态会怎么用。</p>
+              <h3>新功能视频预览</h3>
+              <p class="muted">可直接播放查看，重点看整体交互流程和页面体验。</p>
+              <video class="plan-video-player" controls preload="none" playsinline>
+                <source src="./assets/may-feature-preview.mp4" type="video/mp4" />
+                您的浏览器暂不支持视频播放，请直接打开视频文件查看。
+              </video>
             </div>
           </div>
         </section>
@@ -2003,7 +2030,6 @@
               <p class="starry-line starry-line--emphasis starry-animate starry-animate--snap" data-starry-delay="5080">保持热爱、保持乐观、保持自驱；</p>
               <p class="starry-line starry-line--gradient starry-animate" data-starry-delay="5560">乾坤未定，你我皆是黑马。</p>
               <p class="starry-foot starry-animate starry-animate--snap" data-starry-delay="6200">分享人：<code style="color: rgba(148,163,184,0.78);">liliping61</code></p>
-              <p class="starry-foot starry-animate starry-animate--snap" data-starry-delay="6460">课件：<code style="color: rgba(148,163,184,0.7);">ai-training-site-managers/index.html</code></p>
             </div>
           </div>
         </section>
