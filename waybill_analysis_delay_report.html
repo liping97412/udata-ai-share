@@ -42,8 +42,20 @@
     ul { margin: 0; padding-left: 18px; }
     li { margin: 7px 0; }
     .sampleWrap { overflow:auto; max-height: 320px; }
+    .barlist { display: grid; gap: 10px; }
+    .barrow { display: grid; grid-template-columns: minmax(110px, 180px) 1fr 56px; gap: 10px; align-items: center; }
+    .barlabel { font-size: 12.5px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .bartrack { height: 12px; border-radius: 999px; overflow: hidden; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.06); }
+    .barfill { height: 100%; border-radius: inherit; }
+    .barfill--l1 { background: linear-gradient(90deg, rgba(125,211,252,0.85), rgba(56,189,248,0.65)); }
+    .barfill--l2 { background: linear-gradient(90deg, rgba(167,243,208,0.85), rgba(52,211,153,0.6)); }
+    .barvalue { text-align: right; font-family: var(--mono); color: var(--muted); font-size: 12px; }
+    @media (max-width: 780px) {
+      .grid { grid-template-columns: 1fr; }
+      .barrow { grid-template-columns: 1fr; gap: 6px; }
+      .barvalue { text-align: left; }
+    }
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
   <div class="wrap">
@@ -54,7 +66,7 @@
       </div>
       <div class="meta">
         <div>生成时间：2026-03-25 17:21:20</div>
-        <div>输入数据：<span class="mono">/Users/liliping61/Desktop/工作/script/参考脚本/waybill_analysis/waybill_analysis_dataset.csv</span></div>
+        <div>输入数据：<span class="mono">waybill_analysis_dataset.csv</span></div>
       </div>
     </header>
 
@@ -100,7 +112,12 @@
           <div class="tag">上游责任方向</div>
         </div>
         <div class="bd">
-          <div class="chart"><canvas id="chartL1"></canvas></div>
+          <div class="barlist" aria-label="L1原因占比分布">
+            <div class="barrow"><div class="barlabel">上游责任-分拣</div><div class="bartrack"><div class="barfill barfill--l1" style="width: 100%"></div></div><div class="barvalue">489</div></div>
+            <div class="barrow"><div class="barlabel">上游责任-接货仓</div><div class="bartrack"><div class="barfill barfill--l1" style="width: 26%"></div></div><div class="barvalue">127</div></div>
+            <div class="barrow"><div class="barlabel">上游责任-终端</div><div class="bartrack"><div class="barfill barfill--l1" style="width: 24%"></div></div><div class="barvalue">115</div></div>
+            <div class="barrow"><div class="barlabel">上游责任-其他</div><div class="bartrack"><div class="barfill barfill--l1" style="width: 5%"></div></div><div class="barvalue">23</div></div>
+          </div>
           <div class="sampleWrap" style="margin-top:10px;">
             <table>
               <thead>
@@ -123,7 +140,19 @@
           <div class="tag">网点延迟标签（Top 10 + 其他）</div>
         </div>
         <div class="bd">
-          <div class="chart"><canvas id="chartL2"></canvas></div>
+          <div class="barlist" aria-label="L2原因占比分布">
+            <div class="barrow"><div class="barlabel">北京魏永集货分拣中心延迟</div><div class="bartrack"><div class="barfill barfill--l2" style="width: 32%"></div></div><div class="barvalue">114</div></div>
+            <div class="barrow"><div class="barlabel">廊坊三河接货分拣中心延迟</div><div class="bartrack"><div class="barfill barfill--l2" style="width: 14%"></div></div><div class="barvalue">49</div></div>
+            <div class="barrow"><div class="barlabel">天津京滨接货分拣中心延迟</div><div class="bartrack"><div class="barfill barfill--l2" style="width: 12%"></div></div><div class="barvalue">43</div></div>
+            <div class="barrow"><div class="barlabel">廊坊广阳接货仓延迟</div><div class="bartrack"><div class="barfill barfill--l2" style="width: 12%"></div></div><div class="barvalue">43</div></div>
+            <div class="barrow"><div class="barlabel">北京礼贤接货分拣中心延迟</div><div class="bartrack"><div class="barfill barfill--l2" style="width: 9%"></div></div><div class="barvalue">34</div></div>
+            <div class="barrow"><div class="barlabel">廊坊接货仓延迟</div><div class="bartrack"><div class="barfill barfill--l2" style="width: 9%"></div></div><div class="barvalue">31</div></div>
+            <div class="barrow"><div class="barlabel">杭州东洲集货分拣中心延迟</div><div class="bartrack"><div class="barfill barfill--l2" style="width: 7%"></div></div><div class="barvalue">24</div></div>
+            <div class="barrow"><div class="barlabel">天津散货分拣中心延迟</div><div class="bartrack"><div class="barfill barfill--l2" style="width: 6%"></div></div><div class="barvalue">20</div></div>
+            <div class="barrow"><div class="barlabel">廊坊集散分拣中心延迟</div><div class="bartrack"><div class="barfill barfill--l2" style="width: 5%"></div></div><div class="barvalue">18</div></div>
+            <div class="barrow"><div class="barlabel">廊坊安次重货接货仓延迟</div><div class="bartrack"><div class="barfill barfill--l2" style="width: 5%"></div></div><div class="barvalue">18</div></div>
+            <div class="barrow"><div class="barlabel">其他</div><div class="bartrack"><div class="barfill barfill--l2" style="width: 100%"></div></div><div class="barvalue">360</div></div>
+          </div>
           <div class="sampleWrap" style="margin-top:10px;">
             <table>
               <thead>
@@ -192,33 +221,5 @@
     </div>
   </div>
 
-  <script>
-    const l1Labels = ["上游责任-分拣", "上游责任-接货仓", "上游责任-终端", "上游责任-其他"];
-    const l1Vals = [489, 127, 115, 23];
-    const l2Labels = ["北京魏永集货分拣中心延迟", "廊坊三河接货分拣中心延迟", "天津京滨接货分拣中心延迟", "廊坊广阳接货仓延迟", "北京礼贤接货分拣中心延迟", "廊坊接货仓延迟", "杭州东洲集货分拣中心延迟", "天津散货分拣中心延迟", "廊坊集散分拣中心延迟", "廊坊安次重货接货仓延迟", "其他"];
-    const l2Vals = [114, 49, 43, 43, 34, 31, 24, 20, 18, 18, 360];
-
-    function makeBar(ctx, labels, values, color) {
-      return new Chart(ctx, {
-        type: "bar",
-        data: {
-          labels: labels,
-          datasets: [{ label: "数量", data: values, backgroundColor: color, borderColor: "rgba(255,255,255,0.18)", borderWidth: 1 }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { legend: { display: false } },
-          scales: {
-            x: { ticks: { color: "rgba(255,255,255,0.80)" }, grid: { color: "rgba(255,255,255,0.06)" } },
-            y: { ticks: { color: "rgba(255,255,255,0.80)" }, grid: { color: "rgba(255,255,255,0.06)" }, beginAtZero: true }
-          }
-        }
-      });
-    }
-
-    makeBar(document.getElementById("chartL1"), l1Labels, l1Vals, "rgba(125,211,252,0.65)");
-    makeBar(document.getElementById("chartL2"), l2Labels, l2Vals, "rgba(167,243,208,0.60)");
-  </script>
 </body>
 </html>

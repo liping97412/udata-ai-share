@@ -1540,9 +1540,9 @@
       <div class="slide-viewport" id="viewport" aria-live="polite">
         <section class="slide is-active" id="intro" tabindex="-1" aria-label="开场">
           <div class="main-inner">
-            <p class="eyebrow">UData-AI分享</p>
+            <p class="eyebrow">UData-AI分享 · 李莉萍</p>
             <h1>AI 不只是会聊天，还能帮我们一步步把事情做完</h1>
-            <p class="tagline">今天主要讲三件事：<strong>核心原理</strong>、<strong>业务案例</strong>、<strong>后续规划</strong>。</p>
+            <p class="tagline">我来自技术侧数据部门，也就是 UData 所在的部门。今天想用最通俗的方式，和大家聊聊几个爆火的 AI 概念，以及它们能帮我们解决哪些工作问题。</p>
 
             <div class="illo illo--hero" aria-hidden="true">
               <svg class="hero-svg" viewBox="0 0 560 220" xmlns="http://www.w3.org/2000/svg">
@@ -1587,9 +1587,9 @@
             <div class="card">
               <h3 style="margin:0 0 0.45rem;font-size:0.95rem;">分享大纲</h3>
               <ul class="simple">
-                <li>1）先讲清楚大模型、Agent、Skill 分别是什么</li>
-                <li>2）再看它们在业务里最适合先落地哪些场景</li>
-                <li>3）然后看 UData-AI 后面准备怎么一步步推进</li>
+                <li>1）先讲清楚大模型、Agent、Skill 到底分别是什么</li>
+                <li>2）再看 AI 最适合先解决哪些业务问题，重点看两个真实场景</li>
+                <li>3）最后看 UData-AI 后面准备怎么一步步推进</li>
               </ul>
             </div>
           </div>
@@ -1598,10 +1598,10 @@
         <section class="slide" id="llm" tabindex="-1" aria-label="大模型">
           <div class="main-inner main-inner--llm">
             <h2>核心原理：大模型、Agent、Skill 分别做什么？</h2>
-            <p class="lead">这一页只看三件事：<strong>大模型负责听懂和表达</strong>，<strong>Agent 负责把事情一步步做完</strong>，<strong>Skill 负责把固定做法沉淀下来</strong>。</p>
+            <p class="lead">先只记住一句话：<strong>大模型像大脑</strong>，<strong>Agent 像手脚</strong>，<strong>Skill 像我们平时积累下来的 SOP</strong>。</p>
 
             <div class="topic-block">
-              <h3>1. 大模型是什么？</h3>
+              <h3>1. 大模型到底是什么？</h3>
               <div class="illo illo--llm" aria-hidden="true">
                 <svg viewBox="0 0 420 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
                   <rect x="24" y="52" width="102" height="86" rx="12" fill="#fff" stroke="#93c5fd" stroke-width="2.5"/>
@@ -1621,51 +1621,48 @@
                     <marker id="m2-llm" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#94a3b8"/></marker>
                   </defs>
                 </svg>
-                <p class="illo-cap">读过很多材料后，它能根据您的问题，快速组织出一段像样的回答</p>
+                <p class="illo-cap">可以把它理解成读过大量公开资料后，能根据输入快速组织回答的“超级补全器”</p>
               </div>
               <div class="card">
-                <h4>当前常见的 5 类大模型</h4>
+                <h4>不同模型，可以理解成不同类型的大脑</h4>
                 <ul class="simple">
-                  <li><strong>GPT</strong>：整体比较均衡，通用能力强，做问答、写作、工具调用都比较常见。</li>
-                  <li><strong>Claude</strong>：长文理解和代码能力比较突出，很多复杂任务里很常见。</li>
-                  <li><strong>Gemini</strong>：多模态能力强，适合同时处理文档、图片、音视频等内容。</li>
-                  <li><strong>DeepSeek</strong>：性价比高，适合高频调用、批量处理这类成本敏感场景。</li>
+                  <li><strong>GPT</strong>：整体比较均衡，适合问答、写作、整理思路这类通用任务。</li>
+                  <li><strong>Claude</strong>：长文理解和代码能力比较强，复杂任务里比较常见。</li>
+                  <li><strong>Gemini</strong>：图文音视频一起处理的能力更强，适合多模态场景。</li>
+                  <li><strong>DeepSeek</strong>：成本比较友好，适合高频调用和批量处理。</li>
                   <li><strong>Qwen</strong>：中文能力和开源生态比较活跃，国内很多场景用得多。</li>
                 </ul>
               </div>
             </div>
 
             <div class="topic-block">
-              <h3>2. Agent 和 Skill 是什么？</h3>
+              <h3>2. Agent 和 Skill 为什么会出现？</h3>
               <div class="grid-2">
                 <div class="card">
                   <h4>Agent</h4>
-                  <p>Agent 更像一个会办事的助手。您说一个目标，它会自己想步骤、做动作、看结果。</p>
-                  <p class="muted" style="margin:0;">一句话：先想怎么做，再一步步做，最后看看结果行不行。</p>
+                  <p>大模型很会“说”，但不一定真的会“干”。Agent 更像一个数字员工，您给它目标，它会自己拆步骤、做动作、看结果。</p>
+                  <p class="muted" style="margin:0;">一句话：从只会聊天，变成真的能办事。</p>
                 </div>
                 <div class="card">
                   <h4>Skill</h4>
-                  <p>Skill 就是提前写好的“做事方法”。常见任务整理好后，下次再来可以直接复用。</p>
+                  <p>Agent 如果没有方法，做事就容易自由发挥。Skill 就像工作里的 SOP，把常见任务的做法沉淀下来，后面就能稳定复用。</p>
                   <p class="muted" style="margin:0;">例如：算对比、找原因、整理字段、自动出报告。</p>
                 </div>
               </div>
               <div class="grid-2">
                 <div class="card">
-                  <h4>热门 Agent</h4>
-                  <p style="margin:0 0 0.45rem;"><strong>LangGraph</strong>：适合流程比较复杂、步骤很多、需要反复判断的场景。</p>
-                  <p style="margin:0 0 0.45rem;"><strong>CrewAI</strong>：适合把多个角色型助手组织起来一起完成任务，上手相对直观。</p>
-                  <p style="margin:0 0 0.45rem;"><strong>AutoGen</strong>：适合多 Agent 对话协作，常见于研究、讨论、代码类场景。</p>
-                  <p style="margin:0 0 0.45rem;"><strong>OpenClaw</strong>：更像“搭助手的工具箱”，适合拆步骤、串流程、接工具。</p>
-                  <p style="margin:0;"><strong>Hermes</strong>：更像“后台常驻助手”，适合长期运行、定时执行、持续跟任务。</p>
+                  <h4>为什么 Agent 会火？</h4>
+                  <p style="margin:0 0 0.45rem;">因为大家发现，光来回对话还不够，很多工作其实更需要“直接帮我做完”。</p>
+                  <p style="margin:0 0 0.45rem;">比如：写文档、取数据、发消息、建日程、整理结论，这些都更像“干活”，不是单纯聊天。</p>
+                  <p style="margin:0;">现在大家常说的数字员工，本质上讲的就是这件事。</p>
                 </div>
                 <div class="card">
-                  <h4>常见 Skill 与应用</h4>
+                  <h4>为什么 Skill 很重要？</h4>
                   <ul class="simple">
-                    <li><strong>搜索 / 检索 Skill</strong>：查资料、找知识、汇总网页内容。</li>
-                    <li><strong>代码 / 执行 Skill</strong>：写代码、改代码、跑脚本、调接口。</li>
-                    <li><strong>办公 / 文档 Skill</strong>：写邮件、记纪要、整理文档、生成报告。</li>
-                    <li><strong>流程 / 工具 Skill</strong>：填表、提单、发消息、流转任务。</li>
-                    <li><strong>数据 / 分析 Skill</strong>：问数、做报表、找异常、做预测。</li>
+                    <li>不给指引的 Agent，很像刚来的实习生，容易自由发挥。</li>
+                    <li>有了 Skill，做法就能沉淀下来，后面谁来做都更稳。</li>
+                    <li>大家工作里的 SOP、模版、经验，其实都很适合沉淀成 Skill。</li>
+                    <li>现在很火的机器人、本体智能，本质上也是把这套搬到了现实世界。</li>
                   </ul>
                 </div>
               </div>
@@ -1704,11 +1701,11 @@
                     </marker>
                   </defs>
                 </svg>
-                <p class="figure-caption">您先提问题，大模型先理解，Agent 再一步步处理，连上系统和规则后，最后把结果给您。</p>
+                <p class="figure-caption">先由大模型听懂问题，再由 Agent 拆步骤、接系统、做执行，最后按 Skill 的做法把结果交回来。</p>
               </div>
               <div class="card">
-                <h4>这样做的好处</h4>
-                <p style="margin:0;">同样的问题下次不用从头来，做法能留下来，结果也更稳定、更贴近业务实际。</p>
+                <h4>这套逻辑怎么记？</h4>
+                <p style="margin:0;">总结来说：大模型是大脑，Agent 是手脚，Skill 是后天学会的做事方法。现在这个领域的发展，说白了就是让大脑更聪明、手脚更稳、做事方法更成熟。</p>
               </div>
             </div>
           </div>
@@ -1717,7 +1714,7 @@
         <section class="slide" id="cases" tabindex="-1" aria-label="案例">
           <div class="main-inner">
             <h2>业务案例：哪些事最适合先做？</h2>
-            <p class="muted" style="margin-bottom:1rem;">优先挑那些“经常做、很费时间、做法又比较固定”的事，这样最容易先看到效果。</p>
+            <p class="muted" style="margin-bottom:1rem;">优先挑那些“经常做、很费时间、做法又比较固定”的事，这样最容易先看到效果。比如场地指标没达成时，大家经常就得解释原因，这类问题就特别适合先做。</p>
 
             <div class="simulator" id="analysis-simulator">
               <div class="simulator-head">
@@ -1883,9 +1880,9 @@
               </div>
             </details>
             <details class="interactive">
-              <summary><span class="pill">2</span> 分拣异常归因（未达成明细）</summary>
+              <summary><span class="pill">2</span> 真实场景 1：分拣异常归因（未达成明细）</summary>
               <div class="body">
-                <p>以前需要先拼很多字段，再人工判断原因，耗时很长。现在可以先自动补出一部分原因，人工再复核修改。</p>
+                <p>以前需要先拼很多字段，再人工判断原因，耗时长，口径也容易不一致。现在可以先自动定位未达成运单，再补出一部分原因，人工只做最后复核。</p>
                 <a
                   class="demo-link"
                   href="./waybill_analysis_delay_report.html"
@@ -1895,10 +1892,10 @@
               </div>
             </details>
             <details class="interactive">
-              <summary><span class="pill">3</span> 分拣 AI 分析师（红黑榜诊断）</summary>
+              <summary><span class="pill">3</span> 真实场景 2：成本诊断（红黑榜分析）</summary>
               <div class="body">
-                <p>系统先帮忙找出表现靠后的区域和场地，再进一步看看问题主要出在哪些环节，并给出改善建议。</p>
-                <p class="muted" style="margin-top:0.5rem;">效果：深度分析报告的整理时间能明显缩短。</p>
+                <p>以前场地指标没达成时，大家往往要到处找数据、拼数据、解释原因，不同人分析出来的结论还可能不一样。现在系统可以先找出成本靠后的区域和场地，再往下看问题主要出在哪些环节，并给出改善建议。</p>
+                <p class="muted" style="margin-top:0.5rem;">效果：深度分析报告的整理时间能明显缩短，结论也更统一。</p>
                 <a
                   class="demo-link"
                   href="./cost_analysis_report.html"
